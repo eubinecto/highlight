@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block body %}
+<section>
+    <div class="text-center">
+        <div class="embed-responsive embed-responsive-21by9">
+            {{ player|safe }}
+        </div>
+    </div>
+</section>
+<hr/>
+<section>
+    <h3 class="text-center"> Highlighted </h3> <br>
+    <p class="text-center">{{ highlighted|safe }}</p>
+</section>
+<hr/>
+<section>
+    <h3 class="text-center"> Summary only </h3> <br>
+    {% for tuple in summary %}
+    <div>
+    <div class="text-center"><mark><strong>{{tuple.0}}...</strong></mark></div><br>
+    {% endfor %}
+    </div>
+</section>
+
+<hr/>
+<section>
+    <h3 class="text-center"> Summary with clusters </h3> <br>
+    <div>
+        {% for tuple in summary %}
+        <div class="text-center"><mark><strong>{{tuple.0}}...</strong></mark></div><br>
+        <div>
+            {% for sentence in tuple.1.sentences %}
+                {% cycle '<div class="text-center">' '' '' %}
+                {{ sentence|safe }}
+                {% cycle '' '' '</div>' %}
+            {% endfor %}
+        </div><br>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}
